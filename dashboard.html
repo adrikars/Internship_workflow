@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard - Campus Internship Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+
+<!-- ==================== MAIN APP ==================== -->
+<div id="app" class="layout">
+
+  <nav class="sidebar">
+    <h2 onclick="showPage('dashboard')">Campus Internship</h2>
+    <p id="whoami" class="who"></p>
+    <button id="nav-profile" onclick="showPage('profile')">Student Profile</button>
+    <button id="nav-companies" onclick="showPage('companies')">Companies</button>
+    <button id="nav-applications" onclick="showPage('applications')">Applications</button>
+    <button id="nav-offers" onclick="showPage('offers')">Offers &amp; Status</button>
+    <button id="nav-milestones" onclick="showPage('milestones')">Milestones</button>
+    <button id="nav-reports" onclick="showPage('reports')">Reports</button>
+    <button id="nav-documents" onclick="showPage('documents')">Documents</button>
+    <button class="logout" onclick="logout()">Logout</button>
+  </nav>
+
+  <main>
+
+    <!-- ========== DASHBOARD ========== -->
+    <section id="dashboard" class="page">
+      <div class="hero">
+        <h1>Welcome back</h1>
+        <p id="dashLine"></p>
+      </div>
+      <div class="cards">
+        <div class="stat c1"><p class="num">7,854</p><p>Students Eligible for Interviews</p></div>
+        <div class="stat c2"><p class="num">5,052</p><p>Students Applied</p></div>
+        <div class="stat c3"><p class="num">230</p><p>Companies on Campus</p></div>
+        <div class="stat c4"><p class="num">3,126</p><p>Students Placed</p></div>
+        <div class="stat c2"><p class="num">&#8377;1 Cr</p><p>Highest Package</p></div>
+        <div class="stat c1"><p class="num">&#8377;8.4 LPA</p><p>Average Package</p></div>
+        <div class="stat c4"><p class="num">1,214</p><p>Ongoing Internships</p></div>
+        <div class="stat c3"><p class="num">18</p><p>Upcoming Drives</p></div>
+      </div>
+      <div class="split dash-panels">
+        <div class="panel"><h3>Upcoming Events</h3><div id="dashEvents"></div></div>
+        <div class="panel"><h3>Top Recruiters</h3><div id="dashRecruiters"></div></div>
+      </div>
+    </section>
+
+    <!-- ========== STUDENT PROFILE ========== -->
+    <section id="profile" class="page hidden">
+      <h1>Student Profile</h1>
+      <div class="split">
+        <div class="panel">
+          <h3>Your Details</h3>
+          <label class="field">Name <input type="text" id="pName"></label>
+          <label class="field">Registration Number <input type="text" id="pReg" readonly></label>
+          <label class="field">Branch
+            <select id="pBranch">
+              <option>CSE</option><option>IT</option><option>ECE</option>
+              <option>EEE</option><option>Mechanical</option><option>Civil</option>
+            </select>
+          </label>
+          <label class="field">Email <input type="text" id="pEmail"></label>
+          <label class="field">Skills (comma separated) <input type="text" id="pSkills" placeholder="HTML, CSS, C, Python"></label>
+          <label class="field">Address <input type="text" id="pAddress"></label>
+          <label class="field">Achievements (one per line)
+            <textarea id="pAch" rows="4" placeholder="Hackathon winner 2026&#10;Python certification"></textarea>
+          </label>
+          <button class="btn" onclick="saveProfile()">Save Profile</button>
+        </div>
+        <div id="cv" class="panel cv"></div>
+      </div>
+    </section>
+
+    <!-- ========== COMPANIES ========== -->
+    <section id="companies" class="page hidden">
+      <h1>Companies</h1>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Company</th><th>Domain</th><th>Location</th><th>Seats</th><th>Package Range</th><th>Apply</th></tr></thead>
+          <tbody id="companyTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========== APPLICATIONS ========== -->
+    <section id="applications" class="page hidden">
+      <h1>Applications</h1>
+      <div class="cards">
+        <div class="stat c2"><p class="num" id="appCompanies">0</p><p>Companies Applied For</p></div>
+        <div class="stat c1"><p class="num" id="appTotal">0</p><p>Roles Applied For</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Company</th><th>Role</th><th>Status</th></tr></thead>
+          <tbody id="applicationTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========== OFFERS & STATUS ========== -->
+    <section id="offers" class="page hidden">
+      <h1>Offers &amp; Status</h1>
+      <div class="cards">
+        <div class="stat c2"><p class="num" id="stApplied">0</p><p>Companies Applied</p></div>
+        <div class="stat c1"><p class="num" id="stInterview">0</p><p>Interviews Given</p></div>
+        <div class="stat c4"><p class="num" id="stSelected">0</p><p>Companies Selected You</p></div>
+        <div class="stat c3"><p class="num" id="stRejected">0</p><p>Companies Rejected You</p></div>
+      </div>
+
+      <h2>Your Offers</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Company</th><th>Role</th><th>Package</th><th>Source</th><th>Your Response</th><th>Action</th></tr></thead>
+          <tbody id="offerTable"></tbody>
+        </table>
+      </div>
+
+      <h2>Packages Applied For</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Company</th><th>Role</th><th>Package Range</th><th>Status</th></tr></thead>
+          <tbody id="packageTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========== MILESTONES ========== -->
+    <section id="milestones" class="page hidden">
+      <h1>Milestones</h1>
+      <p class="hint">Students from our campus who have landed top offers.</p>
+      <div id="placedGrid" class="grid"></div>
+    </section>
+
+    <!-- ========== REPORTS ========== -->
+    <section id="reports" class="page hidden">
+      <h1>Reports</h1>
+      <p class="hint">Upcoming companies, internships, certification camps and hackathons.</p>
+      <div class="tabs">
+        <button data-f="All" onclick="setFilter('All')">All</button>
+        <button data-f="Company" onclick="setFilter('Company')">Companies</button>
+        <button data-f="Internship" onclick="setFilter('Internship')">Internships</button>
+        <button data-f="Camp" onclick="setFilter('Camp')">Certification Camps</button>
+        <button data-f="Hackathon" onclick="setFilter('Hackathon')">Hackathons</button>
+      </div>
+      <div id="newsList"></div>
+    </section>
+
+    <!-- ========== DOCUMENTS ========== -->
+    <section id="documents" class="page hidden">
+      <h1>Documents</h1>
+      <div class="panel row">
+        <input type="text" id="dTitle" placeholder="Document title">
+        <select id="dType">
+          <option>Internship Certificate</option>
+          <option>Achievement Certificate</option>
+          <option>Marksheet</option>
+          <option>ID Proof</option>
+          <option>Other</option>
+        </select>
+        <input type="file" id="dFile">
+        <button class="btn" onclick="addDoc()">Add Document</button>
+      </div>
+      <div id="docGrid" class="grid"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
