@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Login - Campus Internship Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page" data-page="login">
+
+  <form class="login-card" onsubmit="login(event)">
+    <h1>Student Login</h1>
+    <p class="sub">Campus Internship Portal</p>
+
+    <label class="field">Registration Number
+      <input type="text" id="regInput" placeholder="e.g. 2026BTECH101">
+    </label>
+
+    <label class="field">Password
+      <input type="password" id="passInput" placeholder="Enter password">
+    </label>
+
+    <p id="loginMsg" class="error"></p>
+    <button type="submit" class="btn full">Login</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
